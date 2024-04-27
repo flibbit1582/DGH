@@ -5,7 +5,7 @@
 ## of Developmental Genes in Stasis and Speciation"
 
 #Load necessary libraries:
-library(gplots)
+library(ggplot2)
 
 ## Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.3 per gene, 
 ## Dsum upper bound = 0.9):
