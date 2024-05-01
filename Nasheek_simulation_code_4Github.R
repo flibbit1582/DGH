@@ -7,7 +7,7 @@
 #Load necessary libraries:
 library(ggplot2)
 
-## Testing nasheek DOSAGE-SENSITIVE simulation (epsilon = 0) with 10,000 
+## SIMULATION #1 - Testing nasheek DOSAGE-SENSITIVE simulation (epsilon = 0) with 10,000 
 ## iterations
 # Define the deviation function
 deviation <- function(cX, cY, cZ) {
@@ -35,7 +35,7 @@ print(paste("Number of instances where epsilon = 0:", count_within_epsilon))
 # The above code results in 0 instances in which epsilon = 0 after 10,000 iterations
 
 
-## Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.3 per gene, 
+## SIMULATION #2 - Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.3 per gene, 
 ## epsilon upper bound = 0.3 x 3 = 0.9):
 # Define the deviation function
 deviationDI <- function(cX, cY, cZ) {
@@ -81,7 +81,7 @@ DI_graph2 <- DI_graph + theme(legend.title = element_text(size = 14),  # Change 
 write.csv(dataDI, "Dosage-insensitive_simulation_results.csv", row.names = FALSE)
 
 
-## Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.1 per gene, 
+## SIMULATION #3 - Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.1 per gene, 
 ## epsilon upper bound = 0.1 x 3 = 0.3):
 # Define the deviation function
 deviationDS <- function(cX, cY, cZ) {
