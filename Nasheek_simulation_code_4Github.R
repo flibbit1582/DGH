@@ -33,29 +33,11 @@ within_epsilon <- deviations > epsilon_upper  # This checks if the deviation exc
 within_epsilon <- deviations >= epsilon_lower & deviations <= epsilon_upper
 count_within_epsilon <- sum(within_epsilon)
 print(paste("Number of instances where epsilon = 0:", count_within_epsilon))
-# Create a data frame for plotting with the corrected condition
-data <- data.frame(Iteration = 1:10000, Deviation = deviations, ExceedsUpperBound = within_epsilon)
-# Plot the results with color coding based on exceeding the upper bound
-graph <- ggplot(data, aes(x = Iteration, y = Deviation, color = ExceedsUpperBound)) +
-  geom_point() +
-  theme_minimal() +
-  labs(title = "",
-       x = "Simulation Iteration",
-       y = "Deviation") +
-  theme(axis.title.x = element_text(size = 14),  # Change x axis label text size
-        axis.title.y = element_text(size = 14)) +  # Change y axis label text size
-  scale_color_manual(values = c("TRUE" = "dodgerblue", "FALSE" = "indianred3"),  # Use red for exceeding, blue for not exceeding
-                     name = "",
-                     labels = c("TRUE" = "Nash Equilibrium", "FALSE" = "Loss of Equilibrium"))
-# Changing text size of legend elements
-graph2 <- graph + theme(legend.title = element_text(size = 14),  # Change legend title size
-                              legend.text = element_text(size = 14))   # Change legend text size
-# Save simulations to output file
-write.csv(data, "Dosage-sensitive_epsilon_zero_simulation_results.csv", row.names = FALSE)
+# The above code results in 0 instances in which epsilon = 0 after 10,000 iterations
 
 
 ## Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.3 per gene, 
-## Dsum upper bound = 0.9):
+## epsilon upper bound = 0.9):
 # Define the deviation function
 deviationDI <- function(cX, cY, cZ) {
   abs(cX - cY) + abs(cX - cZ) + abs(cY - cZ)
@@ -101,7 +83,7 @@ write.csv(dataDI, "Dosage-insensitive_simulation_results.csv", row.names = FALSE
 
 
 ## Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.1 per gene, 
-## Dsum upper bound = 0.3:
+## epsilon upper bound = 0.3:
 # Define the deviation function
 deviationDS <- function(cX, cY, cZ) {
   abs(cX - cY) + abs(cX - cZ) + abs(cY - cZ)
