@@ -33,7 +33,7 @@ within_epsilon <- deviations >= epsilon_lower & deviations <= epsilon_upper
 count_within_epsilon <- sum(within_epsilon)
 print(paste("Number of instances where epsilon = 0:", count_within_epsilon))
 # The above code results in 0 instances in which epsilon = 0 after 10,000 iterations
-
+_______________________
 
 ## SIMULATION #2 - Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.3 per gene, 
 ## epsilon upper bound = 0.3 x 3 = 0.9):
@@ -79,7 +79,7 @@ DI_graph2 <- DI_graph + theme(legend.title = element_text(size = 14),  # Change 
                               legend.text = element_text(size = 14))   # Change legend text size
 # Save simulations to output file
 write.csv(dataDI, "Dosage-insensitive_simulation_results.csv", row.names = FALSE)
-
+_______________________
 
 ## SIMULATION #3 - Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.1 per gene, 
 ## epsilon upper bound = 0.1 x 3 = 0.3):
