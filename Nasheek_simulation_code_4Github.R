@@ -7,6 +7,53 @@
 #Load necessary libraries:
 library(ggplot2)
 
+## Testing nasheek DOSAGE-SENSITIVE simulation (epsilon = 0) with 10,000 
+## iterations
+
+# Define the deviation function
+deviation <- function(cX, cY, cZ) {
+  abs(cX - cY) + abs(cX - cZ) + abs(cY - cZ)
+}
+# Define the epsilon range
+epsilon_lower <- 0.0
+epsilon_upper <- 0.0
+# Generate simulated concentrations
+# Generate a random seed based on the current time and print it
+random_seed <- as.integer(Sys.time())
+print(random_seed)
+set.seed(random_seed)
+cX_values <- runif(10000, min = 0.1, max = 1.0)
+cY_values <- runif(10000, min = 0.1, max = 1.0)
+cZ_values <- runif(10000, min = 0.1, max = 1.0)
+# Calculate deviations
+deviations <- mapply(deviation, cX_values, cY_values, cZ_values)
+# Check if deviations fall within the epsilon range
+within_epsilon <- deviations > epsilon_upper  # This checks if the deviation exceeds the upper bound
+# Counts number of deviations within epsilon range and prints to screen
+within_epsilon <- deviations >= epsilon_lower & deviations <= epsilon_upper
+count_within_epsilon <- sum(within_epsilon)
+print(paste("Number of instances where epsilon = 0:", count_within_epsilon))
+# Create a data frame for plotting with the corrected condition
+data <- data.frame(Iteration = 1:10000, Deviation = deviations, ExceedsUpperBound = within_epsilon)
+# Plot the results with color coding based on exceeding the upper bound
+graph <- ggplot(data, aes(x = Iteration, y = Deviation, color = ExceedsUpperBound)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "",
+       x = "Simulation Iteration",
+       y = "Deviation") +
+  theme(axis.title.x = element_text(size = 14),  # Change x axis label text size
+        axis.title.y = element_text(size = 14)) +  # Change y axis label text size
+  scale_color_manual(values = c("TRUE" = "dodgerblue", "FALSE" = "indianred3"),  # Use red for exceeding, blue for not exceeding
+                     name = "",
+                     labels = c("TRUE" = "Nash Equilibrium", "FALSE" = "Loss of Equilibrium"))
+# Changing text size of legend elements
+graph2 <- graph + theme(legend.title = element_text(size = 14),  # Change legend title size
+                              legend.text = element_text(size = 14))   # Change legend text size
+# Save simulations to output file
+write.csv(data, "Dosage-sensitive_epsilon_zero_simulation_results.csv", row.names = FALSE)
+
+
 ## Testing nasheek DOSAGE-INSENSITIVE simulation (range = 0-0.3 per gene, 
 ## Dsum upper bound = 0.9):
 # Define the deviation function
